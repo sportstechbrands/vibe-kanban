@@ -16,8 +16,6 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
-    ports:
-      - "5433:5432"
 
   azurite:
     profiles: ["attachments"]
@@ -82,8 +80,6 @@ services:
         SENTRY_DSN_REMOTE: ${SENTRY_DSN_REMOTE:-}
         VITE_RELAY_API_BASE_URL: ${VITE_RELAY_API_BASE_URL:-http://localhost:8082}
         VITE_PUBLIC_REACT_VIRTUOSO_LICENSE_KEY: ${VITE_PUBLIC_REACT_VIRTUOSO_LICENSE_KEY:-}
-      ssh:
-        - default
     depends_on:
       remote-db:
         condition: service_healthy
@@ -157,7 +153,6 @@ services:
       start_period: 10s
 
   relay-server:
-    profiles: ["relay"]
     build:
       context: ../..
       dockerfile: crates/relay-tunnel/Dockerfile
